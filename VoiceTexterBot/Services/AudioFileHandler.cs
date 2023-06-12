@@ -1,6 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using VoiceTexterBot.Configurations;
+using VoiceTexterBot.Utilities;
 using File = System.IO.File;
 
 namespace VoiceTexterBot.Services;
@@ -19,7 +20,7 @@ public class AudioFileHandler : IFileHandler
     public async Task Download(string fileId, CancellationToken ct, Message message)
     {
         // Генерируем полный путь файла из конфигурации
-        string inputAudioFilePath = Path.Combine(_appSettings.DownloadsFolder, $"{_appSettings.AudioFileName}-{message.Chat.Id}.{_appSettings.InputAudioFormat}");
+        string inputAudioFilePath = Path.Combine(_appSettings.DownloadsFolder, $"{_appSettings.AudioFileName}-{message.Chat.Id}-{message.MessageId}.{_appSettings.InputAudioFormat}");
 
         using (FileStream destinationStream = File.Create(inputAudioFilePath))
         {
@@ -33,9 +34,15 @@ public class AudioFileHandler : IFileHandler
         }
     }
 
-    public string Process(string languageCode)
+    public string Process(string languageCode, Message message)
     {
-        // Метод пока не реализован
-        throw new NotImplementedException();
+        string inputAudioPath = Path.Combine(_appSettings.DownloadsFolder, $"{_appSettings.AudioFileName}-{message.Chat.Id}-{message.MessageId}.{_appSettings.InputAudioFormat}");
+        string outputAudioPath = Path.Combine(_appSettings.DownloadsFolder, $"{_appSettings.AudioFileName}-{message.Chat.Id}-{message.MessageId}.{_appSettings.OutputAudioFormat}");
+
+        Console.WriteLine("Начинаем конвертацию...");
+        AudioConverter.TryConvert(inputAudioPath, outputAudioPath);
+        Console.WriteLine("Файл конвертирован");
+
+        return "Конвертация успешно завершена";
     }
 }

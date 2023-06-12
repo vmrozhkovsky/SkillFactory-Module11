@@ -28,8 +28,8 @@ namespace VoiceTexterBot.Controllers
                 return;
             Console.WriteLine($"Контроллер {GetType().Name} получил сообщение c ID {message.Voice?.FileId}");
             await _audioFileHandler.Download(fileId, ct, message);
-
-            await _telegramClient.SendTextMessageAsync(message.Chat.Id, "Голосовое сообщение загружено.", cancellationToken: ct);
+            _audioFileHandler.Process("", message);
+            await _telegramClient.SendTextMessageAsync(message.Chat.Id, "Голосовое сообщение загружено и сконвентировано.", cancellationToken: ct);
         }
     }
 }

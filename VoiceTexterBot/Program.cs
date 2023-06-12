@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Telegram.Bot;
 using VoiceTexterBot.Configurations;
 using VoiceTexterBot.Controllers;
+using VoiceTexterBot.Extensions;
 using VoiceTexterBot.Services;
 
 namespace VoiceTexterBot
@@ -13,7 +14,6 @@ namespace VoiceTexterBot
         public static async Task Main()
         {
             Console.OutputEncoding = Encoding.Unicode;
- 
             // Объект, отвечающий за постоянный жизненный цикл приложения
             var host = new HostBuilder()
                 .ConfigureServices((hostContext, services) => ConfigureServices(services)) // Задаем конфигурацию
@@ -48,7 +48,9 @@ namespace VoiceTexterBot
                 BotToken = "6128006597:AAFRHfrtD4i_GAVX6Kr8L-C7ysbL6obyPA0",
                 DownloadsFolder = "C:\\test\\TelegramBot\\Downloads",
                 AudioFileName = "audio",
-                InputAudioFormat = "ogg"
+                InputAudioFormat = "ogg",
+                OutputAudioFormat = "wav",
+                FFMpegFolder = "C:\\test\\TelegramBot\\"
             };
         }
     }

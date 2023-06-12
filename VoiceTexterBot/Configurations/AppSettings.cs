@@ -15,4 +15,6 @@ public class AppSettings
     /// Формат аудио при загрузке
     /// </summary>
     public string InputAudioFormat { get; set; }
+    public string OutputAudioFormat { get; set; }
+    public string FFMpegFolder { get; set; }
 }
