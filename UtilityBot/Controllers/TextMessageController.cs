@@ -46,6 +46,18 @@ public class TextMessageController
                     if (error)
                     {
                         await _telegramClient.SendTextMessageAsync(message.Chat.Id, "Введенные символы не соответствуют выбранному функционалу.", cancellationToken: ct);
+                        switch (_memoryStorage.GetSession(message.Chat.Id).UserFunction)
+                        {
+                            case "plus":
+                                await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите числа через пробел и получите их сумму.", cancellationToken: ct);
+                                break;
+                            case "minus":
+                                await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите числа через пробел и получите их разницу.", cancellationToken: ct);
+                                break;
+                            case "letter":
+                                await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите любое выражение и получите количество символов в нем.", cancellationToken: ct);
+                                break;
+                        }
                     }
                     else
                     {
