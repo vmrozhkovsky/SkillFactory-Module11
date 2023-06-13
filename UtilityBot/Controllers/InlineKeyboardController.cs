@@ -1,0 +1,36 @@
+﻿ 
+using Telegram.Bot;
+using Telegram.Bot.Types;
+using UtilityBot.Services;
+
+namespace UtilityBot.Controllers
+{
+    public class InlineKeyboardController
+    {
+        private readonly ITelegramBotClient _telegramClient;
+        private readonly IStorage _memoryStorage;
+
+        public InlineKeyboardController(ITelegramBotClient telegramBotClient, IStorage memoryStorage)
+        {
+            _telegramClient = telegramBotClient;
+            _memoryStorage = memoryStorage;
+        }
+        public async Task Handle(CallbackQuery? callbackQuery, CancellationToken ct)
+        {
+            _memoryStorage.GetSession(callbackQuery.From.Id).UserFunction = callbackQuery.Data;
+            Console.WriteLine($"Контроллер {GetType().Name} обнаружил нажатие на кнопку, {callbackQuery.Data}");
+            switch (callbackQuery.Data)
+            {
+                case "plus":
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите числа через пробел и получите их сумму.", cancellationToken: ct);
+                    break;
+                case "minus":
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите числа через пробел и получите их разницу.", cancellationToken: ct);
+                    break;
+                case "letter":
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите любое выражение и получите количество символов в нем.", cancellationToken: ct);
+                    break;
+            }
+        }
+    }
+}
