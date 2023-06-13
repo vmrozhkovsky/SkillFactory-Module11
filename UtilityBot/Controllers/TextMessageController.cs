@@ -44,7 +44,7 @@ namespace UtilityBot.Controllers
                     }
                     else
                     {
-                        var strMassive = _textHandler.MessageParse(message, userFunction, out bool error);
+                        var result = _textHandler.Process(message, _memoryStorage.GetSession(message.Chat.Id).UserFunction, out bool error);
                         if (error)
                         {
                             await _telegramClient.SendTextMessageAsync(message.Chat.Id, "Введенные символы не соответствуют выбранному функционалу.", cancellationToken: ct);
@@ -63,7 +63,6 @@ namespace UtilityBot.Controllers
                         }
                         else
                         {
-                            var result = _textHandler.Process(strMassive, _memoryStorage.GetSession(message.Chat.Id).UserFunction);
                             await _telegramClient.SendTextMessageAsync(message.Chat.Id, result.ToString(), cancellationToken: ct);
                         }
                     }

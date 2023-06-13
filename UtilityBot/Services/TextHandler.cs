@@ -17,33 +17,20 @@ namespace UtilityBot.Services
             _telegramBotClient = telegramBotClient;
         }
 
-        public string[] MessageParse(Message message, string userFunction, out bool error)
+        public decimal Process(Message message, string userFunction, out bool error)
         {
             error = false;
+            string[] massive = message.Text.Split(" ");
             if (userFunction == "plus" || userFunction == "minus")
             {
-                foreach (char a in message.Text)
+                try
                 {
-                    if (!(Char.IsDigit(a) || Char.ToString(a) == "." || Char.ToString(a) == "," || Char.IsSeparator(a)))
-                    {
-                        error = true;
-                    }
+                    return TextActions.ActionsOnNumbers(massive, userFunction);
                 }
-            }
-
-            if (message.Text.StartsWith(".") || message.Text.StartsWith(","))
-            {
-                error = true;
-            }
-
-            return message.Text.Split(" ");
-        }
-        
-        public decimal Process(string[] massive, string userFunction)
-        {
-            if (userFunction == "plus" || userFunction == "minus")
-            {
-                return TextActions.ActionsOnNumbers(massive, userFunction);
+                catch
+                {
+                    error = true;
+                }
             }
             return TextActions.ActionsOnLetters(massive);
         }
