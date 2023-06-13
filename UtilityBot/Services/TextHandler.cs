@@ -30,7 +30,8 @@ namespace UtilityBot.Services
                     }
                 }
             }
-            return message.Text.Split(" ");
+            string result = message.Text.Replace("\n", "");
+            return result.Split(" ");
         }
         
         public int Process(string[] massive, string userFunction)

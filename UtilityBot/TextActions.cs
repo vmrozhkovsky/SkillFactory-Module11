@@ -39,7 +39,10 @@ public class TextActions
             int intResult = 0;
             foreach (var element in massive)
             {
-                intResult = intResult + element.Length;
+                if (element != "\n")
+                {
+                    intResult = intResult + element.Length;
+                }
             }
             return intResult;
         }
