@@ -5,6 +5,8 @@ using UtilityBot.Services;
 
 namespace UtilityBot.Controllers
 {
+    
+    // Класс контроллера нажатий кнопок
     public class InlineKeyboardController
     {
         private readonly ITelegramBotClient _telegramClient;

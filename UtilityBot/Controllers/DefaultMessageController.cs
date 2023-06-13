@@ -4,6 +4,8 @@ using UtilityBot.Services;
 
 namespace UtilityBot.Controllers
 {
+    
+    // Класс контроллера любых входящих сообщений, кроме текстовых и нажатий кнопок 
     public class DefaultMessageController
     {
         private readonly ITelegramBotClient _telegramClient;

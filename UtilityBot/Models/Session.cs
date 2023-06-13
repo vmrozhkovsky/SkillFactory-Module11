@@ -1,6 +1,9 @@
-﻿namespace UtilityBot.Models;
-
-public class Session
+﻿namespace UtilityBot.Models
 {
-    public string UserFunction { get; set; }
+    
+    // Класс для хранения настроек пользовательской сессии
+    public class Session
+    {
+        public string UserFunction { get; set; }
+    }
 }

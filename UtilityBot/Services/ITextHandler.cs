@@ -1,9 +1,12 @@
 ﻿using Telegram.Bot.Types;
 
-namespace UtilityBot.Services;
-
-public interface ITextHandler
+namespace UtilityBot.Services
 {
-    string[] MessageParse(Message message, string userFunction, out bool error);
-    int Process(string[] massive, string userFunction);
+    
+    // Интерфейс для классов обработки входящих текстовых сообщений
+    public interface ITextHandler
+    {
+        string[] MessageParse(Message message, string userFunction, out bool error);
+        int Process(string[] massive, string userFunction);
+    }
 }

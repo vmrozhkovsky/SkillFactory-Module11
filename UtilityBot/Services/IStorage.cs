@@ -1,8 +1,11 @@
 ﻿using UtilityBot.Models;
 
-namespace UtilityBot.Services;
-
-public interface IStorage
+namespace UtilityBot.Services
 {
-    Session GetSession(long chatId);
+    
+    // Интерфейс для классов хранения настроек пользовательской сессии
+    public interface IStorage
+    {
+        Session GetSession(long chatId);
+    }
 }

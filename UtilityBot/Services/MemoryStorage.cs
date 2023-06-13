@@ -1,24 +1,27 @@
 ﻿using System.Collections.Concurrent;
 using UtilityBot.Models;
 
-namespace UtilityBot.Services;
-
-public class MemoryStorage : IStorage
+namespace UtilityBot.Services
 {
-    private readonly ConcurrentDictionary<long, Session> _sessions;
-
-    public MemoryStorage()
+    
+    // Класс для заполнения настроек пользовательских сессий
+    public class MemoryStorage : IStorage
     {
-        _sessions = new ConcurrentDictionary<long, Session>();
-    }
+        private readonly ConcurrentDictionary<long, Session> _sessions;
 
-    public Session GetSession(long chatId)
-    {
-        if (_sessions.ContainsKey(chatId))
-            return _sessions[chatId];
-        
-        var newSession = new Session() { UserFunction = "null" };
-        _sessions.TryAdd(chatId, newSession);
-        return newSession;
+        public MemoryStorage()
+        {
+            _sessions = new ConcurrentDictionary<long, Session>();
+        }
+
+        public Session GetSession(long chatId)
+        {
+            if (_sessions.ContainsKey(chatId))
+                return _sessions[chatId];
+            
+            var newSession = new Session() { UserFunction = "null" };
+            _sessions.TryAdd(chatId, newSession);
+            return newSession;
+        }
     }
 }

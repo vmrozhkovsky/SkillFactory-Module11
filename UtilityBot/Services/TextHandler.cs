@@ -2,41 +2,44 @@
 using Telegram.Bot.Types;
 using UtilityBot.Configurations;
 
-namespace UtilityBot.Services;
-
-public class TextHandler : ITextHandler
+namespace UtilityBot.Services
 {
-    private readonly AppSettings _appSettings;
-    private readonly ITelegramBotClient _telegramBotClient;
-
-    public TextHandler(ITelegramBotClient telegramBotClient, AppSettings appSettings)
+    
+    // Класс обработки входящих текстовых сообщений
+    public class TextHandler : ITextHandler
     {
-        _appSettings = appSettings;
-        _telegramBotClient = telegramBotClient;
-    }
+        private readonly AppSettings _appSettings;
+        private readonly ITelegramBotClient _telegramBotClient;
 
-    public string[] MessageParse(Message message, string userFunction, out bool error)
-    {
-        error = false;
-        if (userFunction == "plus" || userFunction == "minus")
+        public TextHandler(ITelegramBotClient telegramBotClient, AppSettings appSettings)
         {
-            foreach (char a in message.Text)
+            _appSettings = appSettings;
+            _telegramBotClient = telegramBotClient;
+        }
+
+        public string[] MessageParse(Message message, string userFunction, out bool error)
+        {
+            error = false;
+            if (userFunction == "plus" || userFunction == "minus")
             {
-                if (Char.IsLetter(a))
+                foreach (char a in message.Text)
                 {
-                    error = true;
+                    if (Char.IsLetter(a))
+                    {
+                        error = true;
+                    }
                 }
             }
+            return message.Text.Split(" ");
         }
-        return message.Text.Split(" ");
-    }
-    
-    public int Process(string[] massive, string userFunction)
-    {
-        if (userFunction == "plus" || userFunction == "minus")
+        
+        public int Process(string[] massive, string userFunction)
         {
-            return TextActions.ActionsOnNumbers(massive, userFunction);
+            if (userFunction == "plus" || userFunction == "minus")
+            {
+                return TextActions.ActionsOnNumbers(massive, userFunction);
+            }
+            return TextActions.ActionsOnLetters(massive);
         }
-        return TextActions.ActionsOnLetters(massive);
     }
 }
