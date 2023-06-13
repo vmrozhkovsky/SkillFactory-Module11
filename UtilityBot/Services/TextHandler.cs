@@ -24,7 +24,7 @@ namespace UtilityBot.Services
             {
                 foreach (char a in message.Text)
                 {
-                    if (!(Char.IsDigit(a) || Char.IsPunctuation(a) || Char.IsSeparator(a)))
+                    if (!(Char.IsDigit(a) || Char.ToString(a) == "." || Char.ToString(a) == "," || Char.IsSeparator(a)))
                     {
                         error = true;
                     }
