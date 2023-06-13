@@ -25,10 +25,10 @@ namespace UtilityBot.Controllers
             switch (callbackQuery.Data)
             {
                 case "plus":
-                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите числа через пробел и получите их сумму.", cancellationToken: ct);
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите числа через пробел и получите их сумму.{Environment.NewLine}Числа могут быть целыми или дробными.{Environment.NewLine}Разделитель в дробном числе - точка или запятая.", cancellationToken: ct);
                     break;
                 case "minus":
-                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите числа через пробел и получите их разницу.", cancellationToken: ct);
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите числа через пробел и получите их разницу.{Environment.NewLine}Числа могут быть целыми или дробными.{Environment.NewLine}Разделитель в дробном числе - точка или запятая.", cancellationToken: ct);
                     break;
                 case "letter":
                     await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id, $"Введите любое выражение и получите количество символов в нем.", cancellationToken: ct);
