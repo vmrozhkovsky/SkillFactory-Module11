@@ -10,6 +10,7 @@ namespace UtilityBot
 {
     public class Program
     {
+        
         public static async Task Main()
         {
             Console.OutputEncoding = Encoding.Unicode;
@@ -35,6 +36,7 @@ namespace UtilityBot
             services.AddSingleton<ITelegramBotClient>(provider => new TelegramBotClient(appSettings.BotToken));
             services.AddHostedService<Bot>();
         }
+        
         static AppSettings BuildAppSettings()
         {
             return new AppSettings()

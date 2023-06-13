@@ -30,6 +30,7 @@ public class TextHandler : ITextHandler
         }
         return message.Text.Split(" ");
     }
+    
     public int Process(string[] massive, string userFunction)
     {
         if (userFunction == "plus" || userFunction == "minus")

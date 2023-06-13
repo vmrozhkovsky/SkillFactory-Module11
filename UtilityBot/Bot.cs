@@ -26,6 +26,7 @@ public class Bot : BackgroundService
         _textMessageController = textMessageController;
         _defaultMessageController = defaultMessageController;
     }
+    
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _telegramClient.StartReceiving(
@@ -36,12 +37,12 @@ public class Bot : BackgroundService
  
         Console.WriteLine("Бот запущен.");
     }
+    
     async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
         if (update.Type == UpdateType.CallbackQuery)
         {
-            await _inlineKeyboardController.Handle(update.CallbackQuery, cancellationToken); 
-            // await _telegramClient.SendTextMessageAsync(update.Message.Chat.Id, "Вы нажали кнопку", cancellationToken: cancellationToken);
+            await _inlineKeyboardController.Handle(update.CallbackQuery, cancellationToken);
             return;
         }
         if (update.Type == UpdateType.Message)
@@ -57,6 +58,7 @@ public class Bot : BackgroundService
             }
         }
     }
+    
     Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
     {
         var errorMessage = exception switch

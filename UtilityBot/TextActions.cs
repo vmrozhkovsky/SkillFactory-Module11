@@ -1,12 +1,11 @@
-﻿using Telegram.Bot.Types;
-
-namespace UtilityBot.Services;
+﻿namespace UtilityBot;
 
 public class TextActions
 {
+    
     public static int ActionsOnNumbers(string[] massive, string userFunction)
     {
-        int IntResult = 0;
+        int intResult = 0;
         switch (userFunction)
         {
             case "plus":
@@ -15,37 +14,33 @@ public class TextActions
                 {
                     if (num != "")
                     {
-                        IntResult = IntResult + Convert.ToInt32(num);
+                        intResult = intResult + Convert.ToInt32(num);
                     }
                 }
                 break;
             }
             case "minus":
             {
-                foreach (string num in massive)
-                {
-                    if (num != "")
+                intResult = Convert.ToInt32(massive[0]);
+                for (int i = 1; i < massive.Length; i++)
+                    if (massive[i] != "")
                     {
-                        IntResult = IntResult - Convert.ToInt32(num);
+                        intResult = intResult - Convert.ToInt32(massive[i]);
                     }
-                }
                 break;
             }
         }
-        return IntResult;
+        return intResult;
     }
 
     public static int ActionsOnLetters(string[] massive)
     {
-        int IntResult = 0;
+        int intResult = 0;
         foreach (var element in massive)
         {
-            foreach (char a in element)
-            {
-                IntResult++;
-            }
+            intResult = intResult + element.Length;
         }
-        return IntResult;
+        return intResult;
     }
 
 }

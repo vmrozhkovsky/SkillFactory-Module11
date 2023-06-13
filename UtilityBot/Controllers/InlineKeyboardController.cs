@@ -15,10 +15,11 @@ namespace UtilityBot.Controllers
             _telegramClient = telegramBotClient;
             _memoryStorage = memoryStorage;
         }
+        
         public async Task Handle(CallbackQuery? callbackQuery, CancellationToken ct)
         {
-            _memoryStorage.GetSession(callbackQuery.From.Id).UserFunction = callbackQuery.Data;
             Console.WriteLine($"Контроллер {GetType().Name} обнаружил нажатие на кнопку, {callbackQuery.Data}");
+            _memoryStorage.GetSession(callbackQuery.From.Id).UserFunction = callbackQuery.Data;
             switch (callbackQuery.Data)
             {
                 case "plus":
