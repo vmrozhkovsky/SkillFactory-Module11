@@ -24,17 +24,22 @@ namespace UtilityBot.Services
             {
                 foreach (char a in message.Text)
                 {
-                    if (Char.IsLetter(a))
+                    if (!(Char.IsDigit(a) || Char.IsPunctuation(a) || Char.IsSeparator(a)))
                     {
                         error = true;
                     }
                 }
             }
-            string result = message.Text.Replace("\n", "");
-            return result.Split(" ");
+
+            if (message.Text.StartsWith(".") || message.Text.StartsWith(","))
+            {
+                error = true;
+            }
+
+            return message.Text.Split(" ");
         }
         
-        public int Process(string[] massive, string userFunction)
+        public decimal Process(string[] massive, string userFunction)
         {
             if (userFunction == "plus" || userFunction == "minus")
             {

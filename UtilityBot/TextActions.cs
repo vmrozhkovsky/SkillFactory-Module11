@@ -4,9 +4,9 @@ public class TextActions
 {
     
     // Класс функционала для входящих текстовых сообщений
-        public static int ActionsOnNumbers(string[] massive, string userFunction)
+        public static decimal ActionsOnNumbers(string[] massive, string userFunction)
         {
-            int intResult = 0;
+            decimal intResult = 0;
             switch (userFunction)
             {
                 case "plus":
@@ -15,18 +15,18 @@ public class TextActions
                     {
                         if (num != "")
                         {
-                            intResult = intResult + Convert.ToInt32(num);
+                            intResult = intResult + Convert.ToDecimal(num.Replace(".", ","));
                         }
                     }
                     break;
                 }
                 case "minus":
                 {
-                    intResult = Convert.ToInt32(massive[0]);
+                    intResult = Convert.ToDecimal(massive[0].Replace(".", ","));
                     for (int i = 1; i < massive.Length; i++)
                         if (massive[i] != "")
                         {
-                            intResult = intResult - Convert.ToInt32(massive[i]);
+                            intResult = intResult - Convert.ToDecimal(massive[i].Replace(".", ","));
                         }
                     break;
                 }
@@ -34,15 +34,13 @@ public class TextActions
             return intResult;
         }
 
-        public static int ActionsOnLetters(string[] massive)
+        public static decimal ActionsOnLetters(string[] massive)
         {
             int intResult = 0;
             foreach (var element in massive)
             {
-                if (element != "\n")
-                {
-                    intResult = intResult + element.Length;
-                }
+                // element.Replace("\n", "");
+                intResult = intResult + element.Replace("\n", "").Length;
             }
             return intResult;
         }
