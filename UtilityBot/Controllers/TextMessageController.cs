@@ -36,6 +36,18 @@ namespace UtilityBot.Controllers
                     });
                     await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"<b>  Выберите необходимое действие.</b>", cancellationToken: ct, parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(buttons));
                     break;
+                case "/plus":
+                    _memoryStorage.GetSession(message.Chat.Id).UserFunction = "plus";
+                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите числа через пробел и получите их сумму.{Environment.NewLine}Числа могут быть целыми или дробными.{Environment.NewLine}Разделитель в дробном числе - точка или запятая.", cancellationToken: ct);
+                    break;
+                case "/minus":
+                    _memoryStorage.GetSession(message.Chat.Id).UserFunction = "minus";
+                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите числа через пробел и получите их разницу.{Environment.NewLine}Числа могут быть целыми или дробными.{Environment.NewLine}Разделитель в дробном числе - точка или запятая.", cancellationToken: ct);
+                    break;
+                case "/letter":
+                    _memoryStorage.GetSession(message.Chat.Id).UserFunction = "letter";
+                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите любое выражение и получите количество символов в нем.", cancellationToken: ct);
+                    break;
                 default:
                     var userFunction = _memoryStorage.GetSession(message.Chat.Id).UserFunction;
                     if (userFunction == "null")
@@ -63,7 +75,7 @@ namespace UtilityBot.Controllers
                         }
                         else
                         {
-                            await _telegramClient.SendTextMessageAsync(message.Chat.Id, result.ToString(), cancellationToken: ct);
+                            await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Результат операции: {result.ToString()}", cancellationToken: ct);
                         }
                     }
                     break;
